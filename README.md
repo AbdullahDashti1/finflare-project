@@ -1,96 +1,117 @@
-# MEN Stack Starter Template with Session Authentication
+# User Stories:
+- As a user, I want to sign up so that I can create my personal account
+- As a user, I want to log in so that I can securely access my portfolio and notes
+- As a user, I want to be redirected to the main dashboard after login so that I can see my portfolio at a glance
+- As a user, I want to see the main dashboard with total portfolio value and recent activity so that I have an overview of my investments
+- As a user, I want to log out so that my account remains secure
+- As a user, I want to see all my stocks in a list on the portfolio page so that I can review my investments quickly
+- As a user, I want to add a new stock with symbol, shares, and purchase price so that my portfolio stays updated
+- As a user, I want to edit a stock to update shares or purchase price so that my portfolio reflects reality
+- As a user, I want to delete a stock if I have sold it so that my portfolio contains only current holdings
+- As a user, I want to click on a stock to see its details including live price and profit/loss so that I can analyze performance
+- As a user, I want to see all notes linked to a stock so that I can review my research or analysis
+- As a user, I want to add a new note with a title and content so that I can document observations or strategies
+- As a user, I want to edit a note if I need to update my analysis or correct mistakes
+- As a user, I want to delete a note if it’s outdated or irrelevant so that my notes stay organized
+- As a user, I want to click on a note to view its full content so that I can read my observations completely
 
-Welcome to the MEN Stack Starter Template! This template provides a foundational setup for building web applications using MongoDB, Express.js, and Node.js, complete with session authentication. This is ideal for students looking to kickstart their development projects.
+# RESTFUL Routes:
+| HTTP Method | Path/Endpoint             | CRUD Operation |
+|-------------|---------------------------|----------------|
+| GET         | /stocks/new               | READ           |
+| POST        | /stocks                   | CREATE         |
+| GET         | /stocks/:id               | READ           |
+| PUT         | /stocks/:id               | UPDATE         |
+| DELETE      | /stocks/:id               | DELETE         |
+| GET         | /stocks/:id/notes         | READ           |
+| POST        | /stocks/:id/notes         | CREATE         |
+| GET         | /stocks/:id/notes/:noteId | READ           |
+| PUT         | /stocks/:id/notes/:noteId | UPDATE         |
+| DELETE      | /stocks/:id/notes/:noteId | DELETE         |
 
-## Table of Contents
-- [Prerequisites](#prerequisites)
-- [Clone the Repository](#clone-the-repository)
-- [Installation](#installation)
-- [Environment Setup](#environment-setup)
-- [Running the Application](#running-the-application)
-- [Removing Git and Creating Your Own Repo](#removing-git-and-creating-your-own-repo)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
+# ERD:
+Stock Schema
+| Field        | Type     | Options |
+|--------------|----------|---------|
+| shares       | Number   | Min: 0  |
+| price        | Number   | Min: 0  |
+| purchaseDate | Date     |         |
+| user         | ObjectId |         |
 
-## Prerequisites
+Notes Schema
+| Field   | Type   |
+|---------|--------|
+| title   | String |
+| content | String |
 
-Before you begin, ensure you have the following installed on your machine:
-- [Node.js](https://nodejs.org/) (LTS or later)
-- [MongoDB](https://www.mongodb.com/) (make sure it's running)
-- [Git](https://git-scm.com/) (for cloning the repository)
+# Stock Market App Wireframes:
+```mermaid
+graph TD
+    A["📊 Stock Portfolio Dashboard<br/>GET /stocks<br/><br/>User sees:<br/>• List of all stocks<br/>• Stock symbols & prices<br/>• Total portfolio value<br/>• Add New Stock button<br/>• Search/filter options"] 
+    
+    B["📈 Stock Details Page<br/>GET /stocks/:id<br/><br/>User sees:<br/>• Full stock information<br/>• Purchase date & history<br/>• Current value & P/L<br/>• Edit/Delete buttons<br/>• Notes section preview"]
+    
+    C["📝 Stock Notes List<br/>GET /stocks/:id/notes<br/><br/>User sees:<br/>• All notes for this stock<br/>• Note titles & dates<br/>• Add New Note button<br/>• Edit/Delete for each note"]
+    
+    D["📄 Individual Note<br/>GET /stocks/:id/notes/:noteId<br/><br/>User sees:<br/>• Full note content<br/>• Note title & date<br/>• Edit Note button<br/>• Delete Note button<br/>• Back to notes list"]
+    
+    E["➕ Add New Stock Form<br/>POST /stocks<br/><br/>Form fields:<br/>• Shares (number, min: 0)<br/>• Price (number, min: 0)<br/>• Purchase Date<br/>• Save/Cancel buttons"]
+    
+    F["✏️ Edit Stock Form<br/>PUT /stocks/:id<br/><br/>Pre-filled form:<br/>• Current shares value<br/>• Current price value<br/>• Current purchase date<br/>• Update/Delete/Cancel buttons"]
+    
+    G["➕ Add New Note Form<br/>POST /stocks/:id/notes<br/><br/>Form fields:<br/>• Title (required)<br/>• Content (required)<br/>• Save/Cancel buttons"]
+    
+    H["✏️ Edit Note Form<br/>PUT /stocks/:id/notes/:noteId<br/><br/>Pre-filled form:<br/>• Current title<br/>• Current content<br/>• Update/Delete/Cancel buttons"]
+    
+    I["🗑️ Delete Confirmation<br/>DELETE /stocks/:id<br/><br/>User sees:<br/>• Confirmation message<br/>• Stock details summary<br/>• Confirm/Cancel buttons<br/>• Warning about data loss"]
+    
+    J["🗑️ Delete Note Confirmation<br/>DELETE /stocks/:id/notes/:noteId<br/><br/>User sees:<br/>• Confirmation message<br/>• Note preview<br/>• Confirm/Cancel buttons"]
 
-## Clone the Repository
+    %% Main navigation flow
+    A -->|"Click stock"| B
+    B -->|"View notes"| C
+    C -->|"Click note"| D
+    
+    %% Create actions
+    A -->|"Add New Stock"| E
+    E -->|"Save successful"| A
+    E -->|"Cancel"| A
+    
+    %% Edit/Delete stock actions
+    B -->|"Edit Stock"| F
+    F -->|"Update successful"| B
+    F -->|"Cancel"| B
+    B -->|"Delete Stock"| I
+    I -->|"Confirm delete"| A
+    I -->|"Cancel"| B
+    F -->|"Delete from edit"| I
+    
+    %% Note actions
+    C -->|"Add New Note"| G
+    G -->|"Save successful"| C
+    G -->|"Cancel"| C
+    
+    D -->|"Edit Note"| H
+    H -->|"Update successful"| D
+    H -->|"Cancel"| D
+    D -->|"Delete Note"| J
+    J -->|"Confirm delete"| C
+    J -->|"Cancel"| D
+    H -->|"Delete from edit"| J
+    
+    %% Back navigation
+    D -->|"Back to notes"| C
+    C -->|"Back to stock"| B
+    B -->|"Back to portfolio"| A
 
-To clone this repository, open your terminal and run:
-
-```bash
-git clone https://github.com/SEB-PT-6-Solutions/men-stack-session-auth-template.git YOUR_APP_NAME_HERE
+    %% Styling
+    classDef primaryPage fill:#e8f5e8,stroke:#27ae60,stroke-width:3px
+    classDef formPage fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    classDef deletePage fill:#f8d7da,stroke:#dc3545,stroke-width:2px
+    
+    class A,B,C,D primaryPage
+    class E,F,G,H formPage
+    class I,J deletePage
 ```
 
-## Installation
-Navigate into the cloned directory:
-```bash
-cd YOUR_APP_NAME
-```
 
-Then, install the necessary dependencies:
-
-```bash
-npm i
-```
-
-## Environment Setup
-```plaintext
-MONGODB_URI=atlas_db_uri
-SESSION_SECRET=your_secret_key
-```
-Replace `atlas_db_uri` with your desired database name and `your_secret_key` with a secure key.
-
-## Removing Git and Creating Your Own Repo
-To remove the existing Git history and create your own repository:
-
-1. Remove the existing .git folder:
-  ```bash
-  rm -rf .git
-  ```
-2. Initialize a new Git repository:
-  ```bash
-  git init
-  ```
-3. Add all files to the new repository:
-  ```bash
-  git add .
-  ```
-4. Commit the changes
-   ```bash
-   git commit -m "Initial commit"
-   ``` 
-5. Create a new repository on GitHub (or any other platform) and follow the instructions to push your local repository.
-  Make a new repository on [GitHub](https://github.com/) named `<your-project-name>`
-  Now link your local project to your remote GitHub repo:
-  ```bash
-  git remote add origin https://github.com/<github-username>/YOUR_APP_NAME.git
-  git push origin main
-  ```
-
-> 🚨 Do not copy the above command. It will not work. Your GitHub username will replace `<github-username>` (including the `<` and `>`) in the URL above.
-
-## Running the application
-```bash
-npm run dev
-```
-
-## Features
-- User registration and login with session management
-- Basic CRUD operations
-- Modular file structure
-- Example routes and controllers
-- Basic user model setup
-- Middleware for templates and authorization
-- Basic authentication flow
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Happy Coding!
