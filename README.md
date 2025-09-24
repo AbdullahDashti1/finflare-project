@@ -30,6 +30,14 @@
 | DELETE      | /stocks/:id/notes/:noteId | DELETE         |
 
 # ERD:
+User Schema
+| Field        | Type     | Options |
+|--------------|----------|---------|
+| username     | string   | true    |
+| password     | string   | true    |
+| stocks       | ObjectId |         |
+| user         | ObjectId |         |
+
 Stock Schema
 | Field        | Type     | Options |
 |--------------|----------|---------|
