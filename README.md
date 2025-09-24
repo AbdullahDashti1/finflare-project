@@ -18,7 +18,7 @@
 # RESTFUL Routes:
 | HTTP Method | Path/Endpoint             | CRUD Operation |
 |-------------|---------------------------|----------------|
-| GET         | /stocks/                  | READ           |
+| GET         | /stocks                   | READ           |
 | POST        | /stocks                   | CREATE         |
 | GET         | /stocks/:id               | READ           |
 | PUT         | /stocks/:id               | UPDATE         |
