@@ -1,18 +1,5 @@
 const mongoose = require('mongoose');
-
-const stockSchema = new mongoose.Schema({
-  shares: {
-    type: Number,
-    min: 0,
-  },
-  price: {
-    type: Number,
-    min: 0,
-  },
-  purchaseDate: {
-    type: Date,
-  },
-});
+const Stock = require('./stock');
 
 const notesSchema = new mongoose.Schema({
   title: String,
@@ -28,7 +15,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  stocks: [stockSchema],
+  stocks: [{type: mongoose.Schema.Types.ObjectId, ref: 'Stock'}],
   notes: [notesSchema],
 });
 
