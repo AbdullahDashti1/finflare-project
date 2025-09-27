@@ -44,6 +44,8 @@ app.use(
 // Add user variable to all templates
 app.use(passUserToView);
 
+app.set('view engine', 'ejs');
+
 // PUBLIC
 app.get('/', (req, res) => {
   res.render('index.ejs');

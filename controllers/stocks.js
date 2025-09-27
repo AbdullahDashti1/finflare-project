@@ -2,20 +2,28 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const User = require('../models/user.js');
 
-router.get('/', async (req, res) => {
-    const user = await User.findById(req.params.userId).populate('stocks');
-    res.render('stocks/index.ejs', {user});
-});
-router.get('/new', async (req, res) => {
-    res.render('stocks/new.ejs', {
-        user: req.session.user,
-    });
+router.get('/stocks', async (req, res) => {
+    const stocks = await Stock.find({});
+    res.render('stocks/index', { stocks });
 });
 
-router.post('/users/:id/stocks', async (req, res) => {
-    const user = await User.findById(req.params.userId);
-    user.stocks.push(req.body);
+router.get('/portfolio', async (req, res) => {
+    const user = await User.findById(req.session.userId).populate('stocks');
+    res.render('stocks/portfolio', { user });
+});
+
+router.post('/stocks', async (req, res) => {
+    const user = req.user;
+
+    const stock = new Stock({
+        name: req.body.name
+    });
+    await stock.save();
+
+    user.stocks.push(stock);
     await user.save();
-    res.redirect('/users/${user._id/stocks');
-})
+
+    res.redirect('/portfolio'); 
+});
+
 module.exports = router;
