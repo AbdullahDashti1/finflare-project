@@ -12,4 +12,10 @@ router.get('/new', async (req, res) => {
     });
 });
 
+router.post('/users/:id/stocks', async (req, res) => {
+    const user = await User.findById(req.params.userId);
+    user.stocks.push(req.body);
+    await user.save();
+    res.redirect('/users/${user._id/stocks');
+})
 module.exports = router;

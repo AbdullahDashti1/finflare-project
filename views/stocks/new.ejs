@@ -10,6 +10,9 @@
 <body>
     <h1>Add Stock to Portfolio:</h1>
     <form action="/users/<%= user._id %>/stocks" method="POST">
+        <label for="name">Company:</label>
+        <input type="text" id="name" name="name" required />
+
         <label for="name">Shares:</label>
         <input type="text" id="name" name="name" required />
 
