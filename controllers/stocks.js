@@ -30,17 +30,16 @@ router.get('/new', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { symbol, shares } = req.body; // shares comes from form
+  const { symbol, shares } = req.body; 
 
-  // Find stock info from predefined array
   const selectedStock = stocks.find(s => s.symbol === symbol);
   if (!selectedStock) return res.redirect('/stocks');
 
   const stock = new Stock({
     symbol: selectedStock.symbol,
-    name: selectedStock.name,        // company name
-    shares: Number(shares),           // convert to number
-    price: selectedStock.price        // price from array
+    name: selectedStock.name,        
+    shares: Number(shares),           
+    price: selectedStock.price        
   });
 
   await stock.save();
