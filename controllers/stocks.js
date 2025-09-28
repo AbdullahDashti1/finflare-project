@@ -88,16 +88,18 @@ router.post('/', async (req, res) => {
 });
 
 router.delete('/:stockId', async (req, res) => {
+  if (!req.session.user) return res.redirect('/login');
+
   const stock = await Stock.findById(req.params.stockId);
+  if (!stock || !stock.user.equals(req.session.user._id)) return res.redirect('/stocks');
 
-  if (!stock) return res.redirect('/stocks');
-
-  if (stock.user.equals(req.session.user._id)) {
-    await stock.deleteOne();
-    res.redirect('/stocks');
-  } else {
-    res.send("You don't have permission to delete this stock.");
+  const availableStock = stocks.find(s => s.symbol === stock.symbol);
+  if (availableStock) {
+    availableStock.shares += stock.shares; 
   }
+
+  await stock.deleteOne();
+  res.redirect('/stocks');
 });
 
 module.exports = router;
