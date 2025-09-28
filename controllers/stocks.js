@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Stock = require('../models/stock'); 
+const Stock = require('../models/stock');
 
 const stocks = [
   { symbol: 'AAPL', name: "Apple's stock", shares: 500, price: 200 },
@@ -21,7 +21,7 @@ const stocks = [
 ];
 
 router.get('/', async (req, res) => {
-  const userStocks = await Stock.find({}); 
+  const userStocks = await Stock.find({});
   res.render('stocks/index', { stocks, userStocks });
 });
 
@@ -29,18 +29,51 @@ router.get('/new', (req, res) => {
   res.render('stocks/new', { stocks });
 });
 
+router.get('/:stockId/edit', async (req, res) => {
+  if (!req.session.user) return res.redirect('/login');
+
+  const stock = await Stock.findById(req.params.stockId);
+  if (!stock || !stock.user.equals(req.session.user._id)) {
+    return res.send("You don't have permission to edit this stock.");
+  }
+
+  res.render('stocks/edit', { stock, stocks }); 
+});
+
+router.put('/:stockId', async (req, res) => {
+  if (!req.session.user) return res.redirect('/login');
+
+  const stock = await Stock.findById(req.params.stockId);
+  if (!stock || !stock.user.equals(req.session.user._id)) {
+    return res.send("You don't have permission to edit this stock.");
+  }
+
+  const { symbol, shares } = req.body;
+  const selectedStock = stocks.find(s => s.symbol === symbol);
+  if (!selectedStock) return res.redirect('/stocks');
+
+  stock.symbol = selectedStock.symbol;
+  stock.name = selectedStock.name;
+  stock.shares = Number(shares);
+  stock.price = selectedStock.price;
+
+  await stock.save();
+  res.redirect('/stocks');
+});
+
+
 router.post('/', async (req, res) => {
-  const { symbol, shares } = req.body; 
+  const { symbol, shares } = req.body;
 
   const selectedStock = stocks.find(s => s.symbol === symbol);
   if (!selectedStock) return res.redirect('/stocks');
 
   const stock = new Stock({
     symbol: selectedStock.symbol,
-    name: selectedStock.name,        
-    shares: Number(shares),           
+    name: selectedStock.name,
+    shares: Number(shares),
     price: selectedStock.price,
-    user: req.session.user._id       
+    user: req.session.user._id
   });
 
   await stock.save();
@@ -55,7 +88,7 @@ router.delete('/:stockId', async (req, res) => {
   if (stock.user.equals(req.session.user._id)) {
     await stock.deleteOne();
     res.redirect('/stocks');
-  } else {  
+  } else {
     res.send("You don't have permission to delete this stock.");
   }
 });

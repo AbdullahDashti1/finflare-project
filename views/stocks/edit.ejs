@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Buy Stock</title>
+    <title>Edit Stock</title>
 </head>
 <body>
-    <h1>Buy a Stock</h1>
+    <h1>Edit Stock</h1>
 
-    <form action="/stocks" method="POST">
+    <form action="/stocks/<%= stock._id %>?_method=PUT" method="POST">
+
         <label>Select Stock:</label>
         <select name="symbol" required>
             <% stocks.forEach(s => { %>
-                <option value="<%= s.symbol %>">
+                <option value="<%= s.symbol %>" <%= s.symbol === stock.symbol ? 'selected="selected"' : '' %>>
                     <%= s.symbol %> - <%= s.name %> ($<%= s.price %>)
                 </option>
             <% }) %>
         </select>
 
         <label>Shares:</label>
-        <input type="number" name="shares" min="1" required>
+        <input type="number" name="shares" value="<%= stock.shares %>" min="1" required>
 
-        <button type="submit">Buy</button>
+        <button type="submit">Update</button>
     </form>
 
     <a href="/stocks">Back to Portfolio</a>
