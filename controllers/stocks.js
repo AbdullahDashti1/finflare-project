@@ -39,11 +39,25 @@ router.post('/', async (req, res) => {
     symbol: selectedStock.symbol,
     name: selectedStock.name,        
     shares: Number(shares),           
-    price: selectedStock.price        
+    price: selectedStock.price,
+    user: req.session.user._id       
   });
 
   await stock.save();
   res.redirect('/stocks');
+});
+
+router.delete('/:stockId', async (req, res) => {
+  const stock = await Stock.findById(req.params.stockId);
+
+  if (!stock) return res.redirect('/stocks');
+
+  if (stock.user.equals(req.session.user._id)) {
+    await stock.deleteOne();
+    res.redirect('/stocks');
+  } else {  
+    res.send("You don't have permission to delete this stock.");
+  }
 });
 
 module.exports = router;
