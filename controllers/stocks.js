@@ -64,14 +64,21 @@ router.put('/:stockId', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const { symbol, shares } = req.body;
-
   const selectedStock = stocks.find(s => s.symbol === symbol);
   if (!selectedStock) return res.redirect('/stocks');
+
+  const sharesToBuy = Number(shares);
+
+  if (sharesToBuy > selectedStock.shares) {
+    return res.send(`Not enough shares available. Only ${selectedStock.shares} left.`);
+  }
+
+  selectedStock.shares -= sharesToBuy;
 
   const stock = new Stock({
     symbol: selectedStock.symbol,
     name: selectedStock.name,
-    shares: Number(shares),
+    shares: sharesToBuy,
     price: selectedStock.price,
     user: req.session.user._id
   });
