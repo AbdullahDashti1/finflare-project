@@ -23,11 +23,6 @@
 | GET         | /stocks/:id               | READ           |
 | PUT         | /stocks/:id               | UPDATE         |
 | DELETE      | /stocks/:id               | DELETE         |
-| GET         | /stocks/:id/notes         | READ           |
-| POST        | /stocks/:id/notes         | CREATE         |
-| GET         | /stocks/:id/notes/:noteId | READ           |
-| PUT         | /stocks/:id/notes/:noteId | UPDATE         |
-| DELETE      | /stocks/:id/notes/:noteId | DELETE         |
 
 # ERD:
 User Schema
@@ -45,12 +40,6 @@ Stock Schema
 | price        | Number   | Min: 0  |
 | purchaseDate | Date     |         |
 | user         | ObjectId |         |
-
-Notes Schema
-| Field   | Type   |
-|---------|--------|
-| title   | String |
-| content | String |
 
 # Stock Market App Wireframes:
 ```mermaid
