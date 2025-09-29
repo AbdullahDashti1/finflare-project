@@ -7,6 +7,37 @@
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
+    <h1>Earnings</h1>
+
+    <h1>Purchased Stocks</h1>
+    <div class="stocks-container">
+        <% if (userStocks.length===0) { %>
+            <p>You haven't purchased any stocks yet.</p>
+            <% } %>
+                <% userStocks.forEach(stock=> { %>
+                    <div class="card">
+                        <h2>
+                            <%= stock.symbol %>
+                        </h2>
+                        <p><strong>Company:</strong>
+                            <%= stock.name %>
+                        </p>
+                        <p><strong>Shares:</strong>
+                            <%= stock.shares %>
+                        </p>
+                        <p><strong>Price per Share:</strong> $<%= stock.price %>
+                        </p>
+                        <p><strong>Total Invested:</strong> $<%= stock.shares * stock.price %>
+                        </p>
+                        <form action="/stocks/<%= stock._id %>?_method=DELETE" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                        <a href="/stocks/<%= stock._id %>/edit">Edit</a>
+                    </div>
+
+                    <% }) %>
+    </div>
+
         <h1>Available Stocks</h1>
         <ul>
             <% stocks.forEach(stock=> { %>
@@ -20,36 +51,6 @@
         </ul>
 
         <a href="/stocks/new">Buy a Stock</a>
-
-        <h1>Your Purchased Stocks</h1>
-        <div class="stocks-container">
-            <% if (userStocks.length===0) { %>
-                <p>You haven't purchased any stocks yet.</p>
-                <% } %>
-                    <% userStocks.forEach(stock=> { %>
-                        <div class="card">
-                            <h2>
-                                <%= stock.symbol %>
-                            </h2>
-                            <p><strong>Company:</strong>
-                                <%= stock.name %>
-                            </p>
-                            <p><strong>Shares:</strong>
-                                <%= stock.shares %>
-                            </p>
-                            <p><strong>Price per Share:</strong> $<%= stock.price %>
-                            </p>
-                            <p><strong>Total Invested:</strong> $<%= stock.shares * stock.price %>
-                            </p>
-                            <form action="/stocks/<%= stock._id %>?_method=DELETE" method="POST"
-                                style="display:inline;">
-                                <button type="submit">Delete</button>
-                            </form>
-                            <a href="/stocks/<%= stock._id %>/edit">Edit</a>
-                        </div>
-
-                        <% }) %>
-        </div>
 </body>
 
 </html>

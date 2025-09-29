@@ -23,11 +23,6 @@
 | GET         | /stocks/:id               | READ           |
 | PUT         | /stocks/:id               | UPDATE         |
 | DELETE      | /stocks/:id               | DELETE         |
-| GET         | /stocks/:id/notes         | READ           |
-| POST        | /stocks/:id/notes         | CREATE         |
-| GET         | /stocks/:id/notes/:noteId | READ           |
-| PUT         | /stocks/:id/notes/:noteId | UPDATE         |
-| DELETE      | /stocks/:id/notes/:noteId | DELETE         |
 
 # ERD:
 User Schema
@@ -46,39 +41,21 @@ Stock Schema
 | purchaseDate | Date     |         |
 | user         | ObjectId |         |
 
-Notes Schema
-| Field   | Type   |
-|---------|--------|
-| title   | String |
-| content | String |
-
 # Stock Market App Wireframes:
 ```mermaid
 graph TD
     A["📊 Stock Portfolio Dashboard<br/>GET /stocks<br/><br/>User sees:<br/>• List of all stocks<br/>• Stock symbols & prices<br/>• Total portfolio value<br/>• Add New Stock button<br/>• Search/filter options"] 
     
-    B["📈 Stock Details Page<br/>GET /stocks/:id<br/><br/>User sees:<br/>• Full stock information<br/>• Purchase date & history<br/>• Current value & P/L<br/>• Edit/Delete buttons<br/>• Notes section preview"]
-    
-    C["📝 Stock Notes List<br/>GET /stocks/:id/notes<br/><br/>User sees:<br/>• All notes for this stock<br/>• Note titles & dates<br/>• Add New Note button<br/>• Edit/Delete for each note"]
-    
-    D["📄 Individual Note<br/>GET /stocks/:id/notes/:noteId<br/><br/>User sees:<br/>• Full note content<br/>• Note title & date<br/>• Edit Note button<br/>• Delete Note button<br/>• Back to notes list"]
+    B["📈 Stock Details Page<br/>GET /stocks/:id<br/><br/>User sees:<br/>• Full stock information<br/>• Purchase date & history<br/>• Current value & P/L<br/>• Edit/Delete buttons"]
     
     E["➕ Add New Stock Form<br/>POST /stocks<br/><br/>Form fields:<br/>• Shares (number, min: 0)<br/>• Price (number, min: 0)<br/>• Purchase Date<br/>• Save/Cancel buttons"]
     
     F["✏️ Edit Stock Form<br/>PUT /stocks/:id<br/><br/>Pre-filled form:<br/>• Current shares value<br/>• Current price value<br/>• Current purchase date<br/>• Update/Delete/Cancel buttons"]
     
-    G["➕ Add New Note Form<br/>POST /stocks/:id/notes<br/><br/>Form fields:<br/>• Title (required)<br/>• Content (required)<br/>• Save/Cancel buttons"]
-    
-    H["✏️ Edit Note Form<br/>PUT /stocks/:id/notes/:noteId<br/><br/>Pre-filled form:<br/>• Current title<br/>• Current content<br/>• Update/Delete/Cancel buttons"]
-    
     I["🗑️ Delete Confirmation<br/>DELETE /stocks/:id<br/><br/>User sees:<br/>• Confirmation message<br/>• Stock details summary<br/>• Confirm/Cancel buttons<br/>• Warning about data loss"]
-    
-    J["🗑️ Delete Note Confirmation<br/>DELETE /stocks/:id/notes/:noteId<br/><br/>User sees:<br/>• Confirmation message<br/>• Note preview<br/>• Confirm/Cancel buttons"]
 
     %% Main navigation flow
     A -->|"Click stock"| B
-    B -->|"View notes"| C
-    C -->|"Click note"| D
     
     %% Create actions
     A -->|"Add New Stock"| E
@@ -94,22 +71,7 @@ graph TD
     I -->|"Cancel"| B
     F -->|"Delete from edit"| I
     
-    %% Note actions
-    C -->|"Add New Note"| G
-    G -->|"Save successful"| C
-    G -->|"Cancel"| C
-    
-    D -->|"Edit Note"| H
-    H -->|"Update successful"| D
-    H -->|"Cancel"| D
-    D -->|"Delete Note"| J
-    J -->|"Confirm delete"| C
-    J -->|"Cancel"| D
-    H -->|"Delete from edit"| J
-    
     %% Back navigation
-    D -->|"Back to notes"| C
-    C -->|"Back to stock"| B
     B -->|"Back to portfolio"| A
 
     %% Styling
@@ -117,9 +79,6 @@ graph TD
     classDef formPage fill:#fff3cd,stroke:#ffc107,stroke-width:2px
     classDef deletePage fill:#f8d7da,stroke:#dc3545,stroke-width:2px
     
-    class A,B,C,D primaryPage
-    class E,F,G,H formPage
-    class I,J deletePage
-```
-
-
+    class A,B primaryPage
+    class E,F formPage
+    class I deletePage
