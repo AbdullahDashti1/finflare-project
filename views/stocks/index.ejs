@@ -9,6 +9,26 @@
     <%- include('../partials/_navbar.ejs') %>
     <h1>Earnings</h1>
 
+    <% 
+        let totalInvested = 0;
+        let totalCurrentValue = 0;
+
+        userStocks.forEach(stock => {
+            const investedAmount = stock.shares * stock.price;
+            const randomPercent = (Math.random() * 100 - 50).toFixed(2); // -50% to +50%
+            const currentValue = investedAmount * (1 + randomPercent / 100);
+
+            totalInvested += investedAmount;
+            totalCurrentValue += currentValue;
+        });
+
+        const totalDifference = totalCurrentValue - totalInvested;
+    %>
+
+    <h2>
+        $<%= totalDifference.toFixed(2) %>
+    </h2>
+
     <h1>Purchased Stocks</h1>
     <div class="stocks-container">
         <% if (userStocks.length===0) { %>
