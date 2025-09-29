@@ -42,6 +42,7 @@ Stock Schema
 | user         | ObjectId |         |
 
 # Stock Market App Wireframes:
+```mermaid
 graph TD
     A["📊 Stock Portfolio Dashboard<br/>GET /stocks<br/><br/>User sees:<br/>• List of all stocks<br/>• Stock symbols & prices<br/>• Total portfolio value<br/>• Add New Stock button<br/>• Search/filter options"] 
     
