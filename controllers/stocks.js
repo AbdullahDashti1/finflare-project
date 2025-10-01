@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Stock = require('../models/stock');
+const User = require('../models/user'); 
+
 
 const stocks = [
   { symbol: 'AAPL', name: "Apple's stock", shares: 500, price: 200 },
@@ -21,8 +23,16 @@ const stocks = [
 ];
 
 router.get('/', async (req, res) => {
-  const userStocks = await Stock.find({});
-  res.render('stocks/index', { stocks, userStocks });
+    if (!req.session.user) return res.redirect('/login');
+
+    const user = await User.findById(req.session.user._id);
+    const userStocks = await Stock.find({ user: req.session.user._id });
+
+    res.render('stocks/index', { 
+        stocks, 
+        userStocks, 
+        userEarnings: user.earnings || 0 
+    });
 });
 
 router.get('/new', (req, res) => {

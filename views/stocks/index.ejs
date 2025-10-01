@@ -7,56 +7,45 @@
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>Earnings</h1>
 
-    <% 
-        let totalInvested = 0;
-        let totalCurrentValue = 0;
+        <h1>Earnings</h1>
 
-        userStocks.forEach(stock => {
-            const investedAmount = stock.shares * stock.price;
-            const randomPercent = (Math.random() * 100 - 50).toFixed(2); // -50% to +50%
-            const currentValue = investedAmount * (1 + randomPercent / 100);
+        <h2>
+            $<span id="earnings" data-base="<%= userEarnings || 0 %>">
+                <%= userEarnings || 0 %>
+            </span>
+        </h2>
 
-            totalInvested += investedAmount;
-            totalCurrentValue += currentValue;
-        });
+        <h1>Purchased Stocks</h1>
+        <div class="stocks-container">
+            <% if (userStocks.length===0) { %>
+                <p>You haven't purchased any stocks yet.</p>
+                <% } else { %>
+                    <% userStocks.forEach(stock=> { %>
+                        <div class="card">
+                            <h2>
+                                <%= stock.symbol %>
+                            </h2>
+                            <p><strong>Company:</strong>
+                                <%= stock.name %>
+                            </p>
+                            <p><strong>Shares:</strong>
+                                <%= stock.shares %>
+                            </p>
+                            <p><strong>Price per Share:</strong> $<%= stock.price %>
+                            </p>
+                            <p><strong>Total Invested:</strong> $<%= (stock.shares * stock.price).toFixed(2) %>
+                            </p>
 
-        const totalDifference = totalCurrentValue - totalInvested;
-    %>
-
-    <h2>
-        $<%= totalDifference.toFixed(2) %>
-    </h2>
-
-    <h1>Purchased Stocks</h1>
-    <div class="stocks-container">
-        <% if (userStocks.length===0) { %>
-            <p>You haven't purchased any stocks yet.</p>
-            <% } %>
-                <% userStocks.forEach(stock=> { %>
-                    <div class="card">
-                        <h2>
-                            <%= stock.symbol %>
-                        </h2>
-                        <p><strong>Company:</strong>
-                            <%= stock.name %>
-                        </p>
-                        <p><strong>Shares:</strong>
-                            <%= stock.shares %>
-                        </p>
-                        <p><strong>Price per Share:</strong> $<%= stock.price %>
-                        </p>
-                        <p><strong>Total Invested:</strong> $<%= stock.shares * stock.price %>
-                        </p>
-                        <form action="/stocks/<%= stock._id %>?_method=DELETE" method="POST" style="display:inline;">
-                            <button type="submit">Delete</button>
-                        </form>
-                        <a href="/stocks/<%= stock._id %>/edit">Edit</a>
-                    </div>
-
-                    <% }) %>
-    </div>
+                            <form action="/stocks/<%= stock._id %>?_method=DELETE" method="POST"
+                                style="display:inline;">
+                                <button type="submit">Delete</button>
+                            </form>
+                            <a href="/stocks/<%= stock._id %>/edit">Edit</a>
+                        </div>
+                        <% }) %>
+                            <% } %>
+        </div>
 
         <h1>Available Stocks</h1>
         <ul>
@@ -71,6 +60,18 @@
         </ul>
 
         <a href="/stocks/new">Buy a Stock</a>
+
+        <script>
+            const earningsElement = document.getElementById('earnings');
+            let earnings = Number(earningsElement.dataset.base);
+
+            function updateEarnings() {
+                const change = (Math.random() * 0.8 - 0.4);
+                earnings = Math.round((earnings + change) * 100) / 100;
+                earningsElement.textContent = earnings;
+            }
+            setInterval(updateEarnings, 3000);
+        </script>
 </body>
 
 </html>
