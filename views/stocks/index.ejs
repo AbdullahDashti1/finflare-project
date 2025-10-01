@@ -15,7 +15,7 @@
 
         userStocks.forEach(stock => {
             const investedAmount = stock.shares * stock.price;
-            const randomPercent = (Math.random() * 100 - 50).toFixed(2); // -50% to +50%
+            const randomPercent = (Math.random() * 100 - 50).toFixed(2); 
             const currentValue = investedAmount * (1 + randomPercent / 100);
 
             totalInvested += investedAmount;
