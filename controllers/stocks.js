@@ -21,8 +21,10 @@ const stocks = [
 ];
 
 router.get('/', async (req, res) => {
-  const userStocks = await Stock.find({});
-  res.render('stocks/index', { stocks, userStocks });
+  const user = await User.findById(req.session.user._id);
+  const userStocks = await Stock.find({ user: req.session.user._id });
+
+  res.render('stocks/index', { stocks, userStocks, userEarnings: user.earnings });
 });
 
 router.get('/new', (req, res) => {
@@ -71,7 +73,7 @@ router.post('/', async (req, res) => {
 
   if (sharesToBuy > selectedStock.shares) {
     return res.send(`Not enough shares available. Only ${selectedStock.shares} left.`);
-  }
+  };
 
   selectedStock.shares -= sharesToBuy;
 
@@ -84,6 +86,17 @@ router.post('/', async (req, res) => {
   });
 
   await stock.save();
+
+  const investedAmount = sharesToBuy * selectedStock.price;
+  const user = await User.findById(req.session.user._id);
+
+  const randomPercent = (Math.random() * 100 - 50).toFixed(2); 
+  const currentValue = investedAmount * (1 + randomPercent / 100);
+  const earnings = currentValue - investedAmount;
+
+  user.earnings += earnings; 
+  await user.save();
+
   res.redirect('/stocks');
 });
 
