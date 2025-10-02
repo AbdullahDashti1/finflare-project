@@ -9,11 +9,6 @@
 - As a user, I want to edit a stock to update shares or purchase price so that my portfolio reflects reality
 - As a user, I want to delete a stock if I have sold it so that my portfolio contains only current holdings
 - As a user, I want to click on a stock to see its details including live price and profit/loss so that I can analyze performance
-- As a user, I want to see all notes linked to a stock so that I can review my research or analysis
-- As a user, I want to add a new note with a title and content so that I can document observations or strategies
-- As a user, I want to edit a note if I need to update my analysis or correct mistakes
-- As a user, I want to delete a note if it’s outdated or irrelevant so that my notes stay organized
-- As a user, I want to click on a note to view its full content so that I can read my observations completely
 
 # RESTFUL Routes:
 | HTTP Method | Path/Endpoint             | CRUD Operation |
