@@ -16,6 +16,7 @@ const passUserToView = require('./middleware/pass-user-to-view.js');
 // Controllers
 const authController = require('./controllers/auth.js');
 const stocksController = require('./controllers/stocks.js');
+const path = require('path');
 
 // Set the port from environment variable or default to 3000
 const PORT = process.env.PORT ? process.env.PORT : '3000';
@@ -28,6 +29,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 // Morgan for logging HTTP requests
 app.use(morgan('dev'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Session Storage with MongoStore
 app.use(
