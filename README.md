@@ -1,3 +1,7 @@
+# Finflare Logo:
+<img width="206" height="93" alt="image" src="https://github.com/user-attachments/assets/2fc46329-5390-45e2-b720-696a6a5cf1e1" />
+
+
 # User Stories:
 - As a user, I want to sign up so that I can create my personal account
 - As a user, I want to log in so that I can securely access my portfolio and notes
