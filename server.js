@@ -13,27 +13,19 @@ const MongoStore = require('connect-mongo');
 const isSignedIn = require('./middleware/is-signed-in.js');
 const passUserToView = require('./middleware/pass-user-to-view.js');
 
-// Controllers
 const authController = require('./controllers/auth.js');
 const stocksController = require('./controllers/stocks.js');
 const path = require('path');
 
-// Set the port from environment variable or default to 3000
 const PORT = process.env.PORT ? process.env.PORT : '3000';
 
-// MIDDLEWARE
-//
-// Middleware to parse URL-encoded data from forms
 app.use(express.urlencoded({ extended: false }));
-// Middleware for using HTTP verbs such as PUT or DELETE
 app.use(methodOverride('_method'));
-// Morgan for logging HTTP requests
 app.use(morgan('dev'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Session Storage with MongoStore
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -45,12 +37,10 @@ app.use(
   })
 );
 
-// Add user variable to all templates
 app.use(passUserToView);
 
 app.set('view engine', 'ejs');
 
-// PUBLIC
 app.get('/', (req, res) => {
   res.render('index.ejs');
 });
@@ -58,7 +48,6 @@ app.get('/', (req, res) => {
 app.use('/auth', authController);
 app.use('/stocks', stocksController);
 
-// PROTECTED
 
 app.listen(PORT, () => {
   console.log(`The express app is ready on port ${PORT}!`);

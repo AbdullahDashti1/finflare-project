@@ -34,7 +34,6 @@ Stock Schema
 | shares       | Number   | Min: 0  |
 | price        | Number   | Min: 0  |
 | purchaseDate | Date     |         |
-| earnings     | Number   | def: 0  |
 | user         | ObjectId |         |
 
 # Stock Market App Wireframes:
