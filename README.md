@@ -65,7 +65,7 @@ graph TD
     
     F["✏️ Edit Stock Form<br/>PUT /stocks/:id<br/><br/>Pre-filled form:<br/>• Current shares value<br/>• Current price value<br/>• Current purchase date<br/>• Update/Delete/Cancel buttons"]
     
-    I["🗑️ Delete Confirmation<br/>DELETE /stocks/:id<br/><br/>User sees:<br/>• Confirmation message<br/>• Stock details summary<br/>• Confirm/Cancel buttons<br/>]
+    I["🗑️ Delete Confirmation<br/>DELETE /stocks/:id<br/><br/>User sees:<br/>• Confirmation message<br/>• Stock details summary<br/>• Confirm/Cancel buttons]
 
     %% Main navigation flow
     A -->|"Click stock"| B
