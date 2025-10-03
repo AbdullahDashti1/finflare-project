@@ -1,6 +1,19 @@
-# Finflare Logo:
+# Logo:
 <img width="206" height="93" alt="image" src="https://github.com/user-attachments/assets/2fc46329-5390-45e2-b720-696a6a5cf1e1" />
 
+# Functionality:
+Finflare is a stock market application using common companies stocks and issue simulated shares for users to buy stocks and recive return on investment (ROI). 
+
+# App Selection:
+The reason why I chose to work on a stock application is due to the bachelor degree I am pursuing, which is Fintech. Fintech deeply priortizes applying digital tools to financial contexts, espically when it comes stocks, tradings, and investments in general. 
+
+# App Link:
+
+# Technolgoies:
+MongoDB, Express, Node.Js, Javascript, HTML, CSS, Morgan, Method Override.
+
+# Future Enhancements:
+A massive feature that I would implement is deploying an API for stock, meaning using real time stocks and users can benefit by actually investing and recieve cash.
 
 # User Stories:
 - As a user, I want to sign up so that I can create my personal account
