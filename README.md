@@ -1,21 +1,22 @@
-# Logo:
+
+# Finflare:
 <img width="206" height="93" alt="image" src="https://github.com/user-attachments/assets/2fc46329-5390-45e2-b720-696a6a5cf1e1" />
 
-# Functionality:
+## Functionality:
 Finflare is a stock market application using common companies stocks and issue simulated shares for users to buy stocks and recive return on investment (ROI). 
 
-# App Selection:
+## App Selection:
 The reason why I chose to work on a stock application is due to the bachelor degree I am pursuing, which is Fintech. Fintech deeply priortizes applying digital tools to financial contexts, espically when it comes stocks, tradings, and investments in general. 
 
-# App Link:
+## App Link:
 
-# Technolgoies:
+## Technolgoies:
 MongoDB, Express, Node.Js, Javascript, HTML, CSS, Morgan, Method Override.
 
-# Future Enhancements:
+## Future Enhancements:
 A massive feature that I would implement is deploying an API for stock, meaning using real time stocks and users can benefit by actually investing and recieve cash.
 
-# User Stories:
+## User Stories:
 - As a user, I want to sign up so that I can create my personal account
 - As a user, I want to log in so that I can securely access my portfolio and notes
 - As a user, I want to be redirected to the main dashboard after login so that I can see my portfolio at a glance
@@ -27,7 +28,7 @@ A massive feature that I would implement is deploying an API for stock, meaning 
 - As a user, I want to delete a stock if I have sold it so that my portfolio contains only current holdings
 - As a user, I want to click on a stock to see its details including live price and profit/loss so that I can analyze performance
 
-# RESTFUL Routes:
+## RESTFUL Routes:
 | HTTP Method | Path/Endpoint             | CRUD Operation |
 |-------------|---------------------------|----------------|
 | GET         | /stocks                   | READ           |
@@ -36,7 +37,7 @@ A massive feature that I would implement is deploying an API for stock, meaning 
 | PUT         | /stocks/:id               | UPDATE         |
 | DELETE      | /stocks/:id               | DELETE         |
 
-# ERD:
+## ERD:
 User Schema
 | Field        | Type     | Options |
 |--------------|----------|---------|
@@ -53,7 +54,7 @@ Stock Schema
 | purchaseDate | Date     |         |
 | user         | ObjectId |         |
 
-# Stock Market App Wireframes:
+## Stock Market App Wireframes:
 ```mermaid
 graph TD
     A["📊 Stock Portfolio Dashboard<br/>GET /stocks<br/><br/>User sees:<br/>• List of all stocks<br/>• Stock symbols & prices<br/>• Total portfolio value<br/>• Add New Stock button<br/>• Search/filter options"] 
