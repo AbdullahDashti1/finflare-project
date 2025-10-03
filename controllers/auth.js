@@ -62,7 +62,6 @@ router.post('/sign-in', async (req, res) => {
   });
 });
 
-// Changed from GET to POST to match navbar form
 router.post("/sign-out", (req, res) => {
   req.session.destroy(() => {
     res.redirect("/");

@@ -1,4 +1,3 @@
-/* Stock Details Page Styles */
 @import url('style.css');
 
 body {
@@ -7,7 +6,6 @@ body {
   padding: 2rem;
 }
 
-/* Details Container */
 .details-container {
   max-width: 900px;
   margin: 3rem auto;
@@ -30,7 +28,6 @@ body {
   background: linear-gradient(90deg, #27ae60, #3498db, #9b59b6);
 }
 
-/* Stock Symbol Header */
 .details-container h1 {
   font-size: 3.5rem;
   font-weight: 800;
@@ -41,7 +38,6 @@ body {
   text-shadow: 0 0 30px rgba(39, 174, 96, 0.3);
 }
 
-/* Details Grid */
 .details-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -70,7 +66,6 @@ body {
   border-left-color: #9b59b6;
 }
 
-/* Detail Content */
 .details-container p {
   font-size: 1.3rem;
   color: #cbd5e0;
@@ -94,7 +89,6 @@ body {
   font-size: 1.1rem;
 }
 
-/* Price Display */
 .price-display {
   text-align: center;
   margin: 2rem 0;
@@ -119,7 +113,6 @@ body {
   text-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
 }
 
-/* Profit/Loss Indicator */
 .profit-loss {
   display: inline-block;
   padding: 0.75rem 1.5rem;
@@ -141,7 +134,6 @@ body {
   border: 2px solid #e74c3c;
 }
 
-/* Action Buttons */
 .action-buttons {
   display: flex;
   gap: 1rem;
@@ -197,7 +189,6 @@ body {
   box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
 }
 
-/* Stats Summary */
 .stats-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -235,7 +226,6 @@ body {
   color: #27ae60;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .details-container {
     padding: 2rem;

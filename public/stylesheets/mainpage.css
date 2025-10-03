@@ -73,6 +73,7 @@ ul li::before {
   height: 100%;
   background: linear-gradient(180deg, #27ae60, #3498db);
   transition: width 0.3s ease;
+  pointer-events: none; /* FIX: Prevent overlay from blocking clicks */
 }
 
 ul li:hover::before {
@@ -92,6 +93,8 @@ ul li strong {
   font-size: 1.4rem;
   margin-bottom: 0.75rem;
   font-weight: 700;
+  position: relative;
+  z-index: 1;
 }
 
 ul li:nth-child(even) {

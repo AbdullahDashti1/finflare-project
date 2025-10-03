@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,36 +8,39 @@
     <link rel="stylesheet" href="/stylesheets/forms.css">
     <title>Buy Stock - FinFlare</title>
 </head>
+
 <body>
     <%- include('../partials/_navbar.ejs', { page: 'buy' }) %>
 
-    <div class="form-container">
-        <h1>📈 Buy a Stock</h1>
-        
-        <form action="/stocks" method="POST">
-            <div class="form-group">
-                <label for="symbol">Select Stock:</label>
-                <select name="symbol" id="symbol" required>
-                    <option value="" disabled selected>Choose a stock...</option>
-                    <% stocks.forEach(s => { %>
-                        <option value="<%= s.symbol %>">
-                            <%= s.symbol %> - <%= s.name %> ($<%= s.price %>) - <%= s.shares %> available
-                        </option>
-                    <% }) %>
-                </select>
-                <span class="input-hint">Select the stock you want to purchase</span>
-            </div>
+        <div class="form-container">
+            <h1>📈 Buy a Stock</h1>
 
-            <div class="form-group">
-                <label for="shares">Number of Shares:</label>
-                <input type="number" name="shares" id="shares" min="1" placeholder="Enter number of shares" required>
-                <span class="input-hint">Minimum: 1 share</span>
-            </div>
+            <form action="/stocks" method="POST">
+                <div class="form-group">
+                    <label for="symbol">Select Stock:</label>
+                    <select name="symbol" id="symbol" required>
+                        <option value="" disabled selected>Choose a stock...</option>
+                        <% stocks.forEach(s=> { %>
+                            <option value="<%= s.symbol %>">
+                                <%= s.symbol %> - <%= s.name %> ($<%= s.price %>) - <%= s.shares %> available
+                            </option>
+                            <% }) %>
+                    </select>
+                    <span class="input-hint">Select the stock you want to purchase</span>
+                </div>
 
-            <button type="submit">Complete Purchase</button>
-        </form>
+                <div class="form-group">
+                    <label for="shares">Number of Shares:</label>
+                    <input type="number" name="shares" id="shares" min="1" placeholder="Enter number of shares"
+                        required>
+                    <span class="input-hint">Minimum: 1 share</span>
+                </div>
 
-        <a href="/stocks">← Back to Portfolio</a>
-    </div>
+                <button type="submit">Complete Purchase</button>
+            </form>
+
+            <a href="/stocks">← Back to Portfolio</a>
+        </div>
 </body>
+
 </html>

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Stock = require('../models/stock');
-const User = require('../models/user'); 
+const User = require('../models/user');
 
 const stocks = [
   { symbol: 'AAPL', name: "Apple's stock", shares: 500, price: 200 },
@@ -21,7 +21,6 @@ const stocks = [
   { symbol: 'OMA', name: "Oman Air's stock", shares: 350, price: 30 }
 ];
 
-// Index - Portfolio page showing all user's stocks
 router.get('/', async (req, res) => {
   try {
     if (!req.session.user) return res.redirect('/auth/sign-in');
@@ -29,9 +28,9 @@ router.get('/', async (req, res) => {
     const user = await User.findById(req.session.user._id);
     const userStocks = await Stock.find({ user: req.session.user._id });
 
-    res.render('stocks/index', { 
-      stocks, 
-      userStocks, 
+    res.render('stocks/index', {
+      stocks,
+      userStocks,
       userEarnings: user.earnings || 0,
       user: req.session.user,
       page: 'portfolio'
@@ -42,12 +41,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-// New - Show form to buy a new stock (MUST come before /:stockId)
 router.get('/new', (req, res) => {
   try {
     if (!req.session.user) return res.redirect('/auth/sign-in');
-    
-    res.render('stocks/new', { 
+
+    res.render('stocks/new', {
       stocks,
       user: req.session.user,
       page: 'buy'
@@ -58,23 +56,22 @@ router.get('/new', (req, res) => {
   }
 });
 
-// Edit - Show form to edit an existing stock (MUST come before /:stockId)
 router.get('/:stockId/edit', async (req, res) => {
   try {
     if (!req.session.user) return res.redirect('/auth/sign-in');
 
     const stock = await Stock.findById(req.params.stockId);
-    
+
     if (!stock) {
       return res.status(404).send("Stock not found.");
     }
-    
+
     if (!stock.user.equals(req.session.user._id)) {
       return res.status(403).send("You don't have permission to edit this stock.");
     }
 
-    res.render('stocks/edit', { 
-      stock, 
+    res.render('stocks/edit', {
+      stock,
       stocks,
       user: req.session.user,
       page: 'portfolio'
@@ -85,22 +82,21 @@ router.get('/:stockId/edit', async (req, res) => {
   }
 });
 
-// Show - Display individual stock details (comes after /new and /:id/edit)
 router.get('/:stockId', async (req, res) => {
   try {
     if (!req.session.user) return res.redirect('/auth/sign-in');
 
     const stock = await Stock.findById(req.params.stockId);
-    
+
     if (!stock) {
       return res.status(404).send("Stock not found.");
     }
-    
+
     if (!stock.user.equals(req.session.user._id)) {
       return res.status(403).send("You don't have permission to view this stock.");
     }
 
-    res.render('stocks/show', { 
+    res.render('stocks/show', {
       stock,
       user: req.session.user,
       page: 'portfolio'
@@ -111,7 +107,6 @@ router.get('/:stockId', async (req, res) => {
   }
 });
 
-// Create - Process buying a new stock
 router.post('/', async (req, res) => {
   try {
     if (!req.session.user) return res.redirect('/auth/sign-in');
@@ -120,7 +115,7 @@ router.post('/', async (req, res) => {
 
     const { symbol, shares } = req.body;
     const selectedStock = stocks.find(s => s.symbol === symbol);
-    
+
     if (!selectedStock) {
       console.log('Stock not found:', symbol);
       return res.redirect('/stocks');
@@ -151,7 +146,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update - Process the edit form
 router.put('/:stockId', async (req, res) => {
   try {
     if (!req.session.user) return res.redirect('/auth/sign-in');
@@ -159,18 +153,18 @@ router.put('/:stockId', async (req, res) => {
     console.log('PUT /stocks/:stockId - Updating stock:', req.params.stockId, req.body);
 
     const stock = await Stock.findById(req.params.stockId);
-    
+
     if (!stock) {
       return res.status(404).send("Stock not found.");
     }
-    
+
     if (!stock.user.equals(req.session.user._id)) {
       return res.status(403).send("You don't have permission to edit this stock.");
     }
 
     const { symbol, shares } = req.body;
     const selectedStock = stocks.find(s => s.symbol === symbol);
-    
+
     if (!selectedStock) {
       console.log('Selected stock not found:', symbol);
       return res.redirect('/stocks');
@@ -190,7 +184,6 @@ router.put('/:stockId', async (req, res) => {
   }
 });
 
-// Delete - Remove a stock from portfolio
 router.delete('/:stockId', async (req, res) => {
   try {
     if (!req.session.user) return res.redirect('/auth/sign-in');
@@ -198,12 +191,12 @@ router.delete('/:stockId', async (req, res) => {
     console.log('DELETE /stocks/:stockId - Deleting stock:', req.params.stockId);
 
     const stock = await Stock.findById(req.params.stockId);
-    
+
     if (!stock) {
       console.log('Stock not found for deletion');
       return res.redirect('/stocks');
     }
-    
+
     if (!stock.user.equals(req.session.user._id)) {
       console.log('User does not own this stock');
       return res.redirect('/stocks');
