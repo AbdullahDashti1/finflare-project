@@ -1,6 +1,22 @@
-<nav>
-    <a href="/">Home</a>
+<nav class="navbar">
+  <a href="/" class="navbar-brand">
+    <div class="navbar-logo">FF</div>
+    <span class="navbar-title">FinFlare</span>
+  </a>
+  
+  <ul class="navbar-menu">
+    <li><a href="/" class="<%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">Home</a></li>
     <% if (user) { %>
-        <a href="/stocks">Stock Portfolio</a>
-        <% } %>
+      <li><a href="/stocks" class="<%= typeof page !== 'undefined' && page === 'portfolio' ? 'active' : '' %>">Portfolio</a></li>
+      <li><a href="/stocks/new" class="<%= typeof page !== 'undefined' && page === 'buy' ? 'active' : '' %>">Buy Stock</a></li>
+      <li>
+        <form action="/auth/sign-out" method="POST" style="display: inline;">
+          <button type="submit" class="btn-logout">Logout</button>
+        </form>
+      </li>
+    <% } else { %>
+      <li><a href="/auth/sign-in">Sign In</a></li>
+      <li><a href="/auth/sign-up">Sign Up</a></li>
+    <% } %>
+  </ul>
 </nav>

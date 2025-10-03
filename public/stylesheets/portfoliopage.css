@@ -1,0 +1,248 @@
+/* Portfolio Page Specific Styles */
+@import url('style.css');
+
+body {
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  padding-bottom: 3rem;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin: 2rem 0 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #27ae60, #3498db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Earnings Display */
+.earnings {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 1rem 0 3rem;
+  color: #27ae60;
+  text-shadow: 0 0 30px rgba(39, 174, 96, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* Stocks Container */
+.stocks-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Stock Card */
+.stock-card {
+  background: linear-gradient(135deg, #1a1f2e 0%, #252b3b 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 2px solid #2d3748;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stock-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #27ae60, #3498db, #9b59b6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stock-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(39, 174, 96, 0.3);
+  border-color: #27ae60;
+}
+
+.stock-card:hover::before {
+  opacity: 1;
+}
+
+.stock-symbol {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #27ae60;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.stock-card p {
+  color: #a0aec0;
+  font-size: 1rem;
+  margin: 0.75rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stock-card strong {
+  color: #cbd5e0;
+  font-weight: 600;
+}
+
+/* Button Container */
+.inline-form {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.stock-card .btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #c0392b, #a93226);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, #ffc107, #e0a800);
+  color: #0f1419;
+  text-decoration: none;
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #e0a800, #c69500);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+}
+
+/* No Stocks Message */
+.no-stocks {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #a0aec0;
+  padding: 3rem;
+  grid-column: 1 / -1;
+}
+
+/* Available Stocks List */
+.stock-list {
+  list-style: none;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.stock-item {
+  background: #1a1f2e;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #27ae60;
+  color: #cbd5e0;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.stock-item:hover {
+  background: #252b3b;
+  border-left-width: 6px;
+  transform: translateX(5px);
+}
+
+.stock-item strong {
+  color: #27ae60;
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+/* Buy Button */
+.btn-buy {
+  display: block;
+  width: fit-content;
+  margin: 3rem auto;
+  padding: 1rem 3rem;
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(39, 174, 96, 0.3);
+  transition: all 0.4s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-buy:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(39, 174, 96, 0.5);
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .stocks-container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .earnings {
+    font-size: 3rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .stock-symbol {
+    font-size: 2rem;
+  }
+
+  .stock-list {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .earnings {
+    font-size: 2.5rem;
+  }
+
+  .stock-card {
+    padding: 1.5rem;
+  }
+
+  .btn-buy {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+  }
+}

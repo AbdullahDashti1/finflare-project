@@ -7,18 +7,65 @@
     <title>Stock Details</title>
 </head>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/stock-details.css">
+    <title><%= stock.symbol %> Details - FinFlare</title>
+</head>
 <body>
-    <h1>
-        <%= stock.symbol %> - Details
-    </h1>
-    <p>Name: <%= stock.name %>
-    </p>
-    <p>Shares Purchased: <%= stock.shares %>
-    </p>
-    <p>Price per Share: $<%= stock.price %>
-    </p>
+    <%- include('../partials/_navbar.ejs', { page: 'portfolio' }) %>
 
-    <a href="/stocks">Back to Portfolio</a>
+    <div class="details-container">
+        <h1><%= stock.symbol %></h1>
+
+        <div class="price-display">
+            <div class="price-label">Current Price Per Share</div>
+            <div class="price-value">$<%= stock.price %></div>
+        </div>
+
+        <div class="stats-summary">
+            <div class="stat-box">
+                <div class="stat-title">Shares Owned</div>
+                <div class="stat-number"><%= stock.shares %></div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-title">Total Value</div>
+                <div class="stat-number">$<%= (stock.shares * stock.price).toFixed(2) %></div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-title">Company</div>
+                <div class="stat-number" style="font-size: 1.2rem; color: #cbd5e0;"><%= stock.name %></div>
+            </div>
+        </div>
+
+        <div class="details-grid">
+            <div class="detail-item">
+                <p><strong>Symbol:</strong> <%= stock.symbol %></p>
+            </div>
+            <div class="detail-item">
+                <p><strong>Company Name:</strong> <%= stock.name %></p>
+            </div>
+            <div class="detail-item">
+                <p><strong>Shares Purchased:</strong> <%= stock.shares %></p>
+            </div>
+            <div class="detail-item">
+                <p><strong>Price per Share:</strong> $<%= stock.price %></p>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/stocks" class="btn-back">← Back to Portfolio</a>
+            <a href="/stocks/<%= stock._id %>/edit" class="btn-edit-detail">Edit Stock</a>
+            <form action="/stocks/<%= stock._id %>?_method=DELETE" method="POST" style="display: inline;">
+                <button type="submit" class="btn-delete-detail" onclick="return confirm('Are you sure you want to delete this stock?')">Delete Stock</button>
+            </form>
+        </div>
+    </div>
 </body>
+</html>
 
 </html>

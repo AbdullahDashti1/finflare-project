@@ -3,26 +3,55 @@
 <head>
     <title>Edit Stock</title>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/forms.css">
+    <title>Edit Stock - FinFlare</title>
+</head>
 <body>
-    <h1>Edit Stock</h1>
+    <%- include('../partials/_navbar.ejs', { page: 'portfolio' }) %>
 
-    <form action="/stocks/<%= stock._id %>?_method=PUT" method="POST">
+    <div class="form-container">
+        <h1>✏️ Edit Stock</h1>
 
-        <label>Select Stock:</label>
-        <select name="symbol" required>
-            <% stocks.forEach(s => { %>
-                <option value="<%= s.symbol %>" <%= s.symbol === stock.symbol ? 'selected="selected"' : '' %>>
-                    <%= s.symbol %> - <%= s.name %> ($<%= s.price %>)
-                </option>
-            <% }) %>
-        </select>
+        <div class="stock-info">
+            <p><strong>Current Stock:</strong> <%= stock.symbol %> - <%= stock.name %></p>
+            <p><strong>Current Price:</strong> $<%= stock.price %></p>
+            <p><strong>Current Shares:</strong> <%= stock.shares %></p>
+        </div>
 
-        <label>Shares:</label>
-        <input type="number" name="shares" value="<%= stock.shares %>" min="1" required>
+        <form action="/stocks/<%= stock._id %>?_method=PUT" method="POST">
+            <div class="form-group">
+                <label for="symbol">Select Stock:</label>
+                <select name="symbol" id="symbol" required>
+                    <% stocks.forEach(s => { %>
+                        <option value="<%= s.symbol %>" <%= s.symbol === stock.symbol ? 'selected="selected"' : '' %>>
+                            <%= s.symbol %> - <%= s.name %> ($<%= s.price %>)
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
 
-        <button type="submit">Update</button>
-    </form>
+            <div class="form-group">
+                <label for="shares">Number of Shares:</label>
+                <input type="number" name="shares" id="shares" value="<%= stock.shares %>" min="1" required>
+                <span class="input-hint">Update the number of shares you own</span>
+            </div>
 
-    <a href="/stocks">Back to Portfolio</a>
+            <div class="button-group">
+                <button type="submit" class="btn btn-update">Update Stock</button>
+                <a href="/stocks" class="btn btn-cancel">Cancel</a>
+            </div>
+        </form>
+
+        <form action="/stocks/<%= stock._id %>?_method=DELETE" method="POST" style="margin-top: 2rem;">
+            <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this stock?')">Delete Stock</button>
+        </form>
+    </div>
 </body>
+</html>
 </html>

@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/portfoliopage.css">
     <title>Stock Portfolio</title>
 </head>
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
 
-        <h1>Earnings</h1>
+        <h1 class="section-title">Earnings</h1>
 
-        <h2>
+        <h2 class="earnings">
             $<span id="earnings" data-base="<%= userEarnings || 0 %>">
                 <%= userEarnings || 0 %>
             </span>
         </h2>
 
-        <h1>Purchased Stocks</h1>
+        <h1 class="section-title">Purchased Stocks</h1>
         <div class="stocks-container">
             <% if (userStocks.length===0) { %>
-                <p>You haven't purchased any stocks yet.</p>
+                <p class="no-stocks">You haven't purchased any stocks yet.</p>
                 <% } else { %>
                     <% userStocks.forEach(stock=> { %>
-                        <div class="card">
-                            <h2>
+                        <div class="card stock-card">
+                            <h2 class="stock-symbol">
                                 <%= stock.symbol %>
                             </h2>
                             <p><strong>Company:</strong>
@@ -37,36 +40,34 @@
                             <p><strong>Total Invested:</strong> $<%= (stock.shares * stock.price).toFixed(2) %>
                             </p>
 
-                            <form action="/stocks/<%= stock._id %>?_method=DELETE" method="POST"
-                                style="display:inline;">
-                                <button type="submit">Delete</button>
+                            <form action="/stocks/<%= stock._id %>?_method=DELETE" method="POST" class="inline-form">
+                                <button type="submit" class="btn btn-delete">Delete</button>
                             </form>
-                            <a href="/stocks/<%= stock._id %>/edit">Edit</a>
+                            <a href="/stocks/<%= stock._id %>/edit" class="btn btn-edit">Edit</a>
                         </div>
                         <% }) %>
                             <% } %>
         </div>
 
-        <h1>Available Stocks</h1>
-        <ul>
+        <h1 class="section-title">Available Stocks</h1>
+        <ul class="stock-list">
             <% stocks.forEach(stock=> { %>
-                <li>
+                <li class="stock-item">
                     <strong>
                         <%= stock.symbol %>
-                    </strong> - <%= stock.name %> - $<%= stock.price %>
-                            (<%= stock.shares %> shares available)
+                    </strong> - <%= stock.name %> - $<%= stock.price %> - (<%= stock.shares %> shares available)
                 </li>
                 <% }) %>
         </ul>
 
-        <a href="/stocks/new">Buy a Stock</a>
+        <a href="/stocks/new" class="btn btn-buy">Buy a Stock</a>
 
         <script>
             const earningsElement = document.getElementById('earnings');
             let earnings = Number(earningsElement.dataset.base);
 
             function updateEarnings() {
-                const change = (Math.random() * 0.8 - 0.4);
+                const change = (Math.random() * 50 - 20);
                 earnings = Math.round((earnings + change) * 100) / 100;
                 earningsElement.textContent = earnings;
             }
