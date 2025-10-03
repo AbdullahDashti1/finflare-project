@@ -15,39 +15,72 @@
       <p>
         <a href="/auth/sign-out">Sign out</a>
       </p>
+      <h3>Great to see you again <%= user.username %>, Ready for some investments?</h3>
+      <h3>Latest News:</h3>
+      <ul>
+        <li>
+          <strong>Apple Stock Soars!</strong><br>
+          "Apple has seen astonishing growth of 15% in their stock price simply because of their product announcements.
+          Analysts are predicting this trend will continue as demand rises."
+        </li>
+        <li>
+          <strong>Federal Government Tariffs</strong><br>
+          "The federal government has sanctioned new tariffs against imported electronics that will affect larger
+          companies such as Samsung and Sony. This could lead to increases in pricing for consumers."
+        </li>
+        <li>
+          <strong>Rally Continues in the Technology Sector</strong><br>
+          "There has been a rally in technology with major players such as Microsoft and Google announcing
+          record-breaking quarterly numbers. Investors are excited for future earnings."
+        </li>
+        <li>
+          <strong>Possible Market Volatility</strong><br>
+          "Analysts are warning of possible volatility in the markets due to rising inflation. Investors should be on
+          the lookout and consider diversification."
+        </li>
+        <li>
+          <strong>Crypto Market Growing</strong><br>
+          "After being down for months, we are beginning to see new growth in cryptocurrencies, including Bitcoin and
+          Ethereum, which are at a higher value at this time. Investors are watching with curiosity."
+        </li>
+        <li>
+          <strong>Retail Sales Surge</strong><br>
+          "Retail sales were up by 10% this quarter and surprised analysts as the country began recovering from the
+          pandemic and growth in consumer spending spiked."
+        </li>
+      </ul>
       <% } else { %>
         <h1>Welcome to Finflare, guest.</h1>
         <p>
           <a href="/auth/sign-up">Sign up</a> or <a href="/auth/sign-in">Sign in</a>.
         </p>
+        <h3>Welcome to FinFlare, the place for simulated stock investments! Jump into the excitement world of
+          investing.
+          Whether you have experience in investments or you are new, it can be a great opportunity to make some cash!
+        </h3>
+
+        <h3>FAQs:
+          <ul>
+            <li>1. How do I sign up for an account at FinFlare?
+              Signing up for an account is simple! Just click "Sign Up" on our homepage and fill out all of the
+              required fields, you will be investing in just a few minutes!
+            </li>
+            <li>
+              2. How often is the market updated?
+              The market in FinFlare is updated in real-time market conditions to provide user with a full investing
+              experience.
+            </li>
+            <li>
+              3. Who can sign up for FinFlare?
+              Anyone interested in learning about stock investments can sign up for FinFlare! However, users must be at
+              least 13 years old to create an account. We encourage parents to supervise younger users.
+            </li>
+          </ul>
+        </h3>
+
+        <h3>Support</h3>
+        <p>customersupport@finflare.com</p>
         <% } %>
-          <h3>Welcome to FinFlare, the place for simulated stock investments! Jump into the excitement world of
-            investing.
-            Whether you have experience in investments or you are new, it can be a great opportunity to make some cash!
-          </h3>
-
-          <h3>FAQs:
-            <ul>
-              <li>1. How do I sign up for an account at FinFlare?
-                Signing up for an account is simple! Just click "Sign Up" on our homepage and fill out all of the
-                required fields, you will be investing in just a few minutes!
-              </li>
-              <li>
-                2. How often is the market updated?
-                The market in FinFlare is updated in real-time market conditions to provide user with a full investing
-                experience.
-              </li>
-              <li>
-                3. Who can sign up for FinFlare?
-                Anyone interested in learning about stock investments can sign up for FinFlare! However, users must be at
-                least 13 years old to create an account. We encourage parents to supervise younger users.
-              </li>
-            </ul>
-          </h3>
-
-          <h3>Support</h3>
-          <p>customersupport@finflare.com</p>
-
 </body>
 
 </html>
